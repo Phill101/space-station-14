@@ -246,6 +246,7 @@ public sealed class TraitorRuleSystem : GameRuleSystem<TraitorRuleComponent>
         var traitorRole = new TraitorRole(mind, antagPrototype);
 
         // Give traitors their codewords and uplink code to keep in their character info menu
+        // TODO: traitorRole.Mind.Codewords = traitorRule.Codewords;
         traitorRole.Mind.Briefing = string.Format(
             "{0}\n{1}",
             Loc.GetString("traitor-role-codewords-short", ("codewords", string.Join(", ", traitorRule.Codewords))),

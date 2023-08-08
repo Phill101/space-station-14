@@ -97,6 +97,7 @@ public partial class ChatBox : UIWidget
         }
     }
 
+    // TODO: apply all the highlighting here providing messages with a proper markup
     public void AddLine(string message, Color color)
     {
         var formatted = new FormattedMessage(3);

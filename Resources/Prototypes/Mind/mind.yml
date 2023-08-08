@@ -1,0 +1,6 @@
+﻿- type: entity
+  id: Mind
+  name: Mind
+  description: A mind represents the IC "mind" of a player
+  components:
+    - type: Mind

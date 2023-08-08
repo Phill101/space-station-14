@@ -31,6 +31,7 @@ public sealed class MindSystem : EntitySystem
     [Dependency] private readonly GhostSystem _ghostSystem = default!;
     [Dependency] private readonly IAdminLogManager _adminLogger = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly EntityManager _entityManager = default!;
 
     // This is dictionary is required to track the minds of disconnected players that may have had their entity deleted.
     private readonly Dictionary<NetUserId, Mind> _userMinds = new();
@@ -114,6 +115,8 @@ public sealed class MindSystem : EntitySystem
             return;
 
         mind.Mind = value;
+        mind.MindUid = value.MindUid;
+        Dirty(mind);
         RaiseLocalEvent(uid, new MindAddedMessage(), true);
     }
 
@@ -128,7 +131,9 @@ public sealed class MindSystem : EntitySystem
             return;
 
         RaiseLocalEvent(uid, new MindRemovedMessage(), true);
+        mind.MindUid = null;
         mind.Mind = null;
+        Dirty(mind);
     }
 
     private void OnVisitingTerminating(EntityUid uid, VisitingMindComponent component, ref EntityTerminatingEvent args)
@@ -242,7 +247,9 @@ public sealed class MindSystem : EntitySystem
 
     public Mind CreateMind(NetUserId? userId, string? name = null)
     {
-        var mind = new Mind();
+        var mindUid = _entityManager.SpawnEntity("Mind", MapCoordinates.Nullspace);
+
+        var mind = new Mind(mindUid);
         mind.CharacterName = name;
         SetUserId(mind, userId);
 

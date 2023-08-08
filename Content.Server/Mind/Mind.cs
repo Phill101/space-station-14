@@ -20,6 +20,8 @@ namespace Content.Server.Mind
     /// </remarks>
     public sealed class Mind
     {
+        public readonly EntityUid MindUid;
+
         internal readonly ISet<Role> Roles = new HashSet<Role>();
 
         internal readonly List<Objective> Objectives = new();
@@ -31,8 +33,9 @@ namespace Content.Server.Mind
         ///     Note: the Mind is NOT initially attached!
         ///     The provided UserId is solely for tracking of intended owner.
         /// </summary>
-        public Mind()
+        public Mind(EntityUid mindUid)
         {
+            MindUid = mindUid;
         }
 
         /// <summary>

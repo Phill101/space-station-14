@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using Content.Shared.Mind.Components;
 
 namespace Content.Server.Mind.Components
 {
@@ -6,7 +7,7 @@ namespace Content.Server.Mind.Components
     ///     Stores a <see cref="Server.Mind.Mind"/> on a mob.
     /// </summary>
     [RegisterComponent, Access(typeof(MindSystem))]
-    public sealed class MindContainerComponent : Component
+    public sealed class MindContainerComponent : SharedMindContainerComponent
     {
         /// <summary>
         ///     The mind controlling this mob. Can be null.
